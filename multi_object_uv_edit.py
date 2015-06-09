@@ -111,7 +111,7 @@ class MultiObjectUVEdit(bpy.types.Operator):
                 pass
         bpy.ops.object.mode_set(mode='EDIT')
         
-    def merge_selected_objects(self,context):
+    def merge_selected_objects(self,context):        
         objects = []
         dupli_objects = []
         active_object = None
@@ -147,7 +147,8 @@ class MultiObjectUVEdit(bpy.types.Operator):
         self.multi_object.name = "Multi_UV_Object"
     
     def modal(self, context, event):
-        if event.type in ['TAB']:
+        
+        if event.type in ['TAB'] or context.active_object.mode == "OBJECT":
             self.report({'INFO'}, "Multi Object UV Editing done.")
             self.leave_editing_mode(context)
             return {'CANCELLED'}
