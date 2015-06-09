@@ -77,6 +77,8 @@ class MultiObjectUVEdit(bpy.types.Operator):
                 if tmp_obj.data.uv_textures.active.name not in bpy.data.objects[v_group.name].data.uv_textures:
                     new_uv_layer = bpy.data.objects[v_group.name].data.uv_textures.new(tmp_obj.data.uv_textures.active.name)
                     bpy.data.objects[v_group.name].data.uv_textures.active = new_uv_layer
+                else:
+                    bpy.data.objects[v_group.name].data.uv_textures.active = tmp_obj.data.uv_textures.active
                 bpy.ops.object.join_uvs()
                 
             ### delete the tmp object
