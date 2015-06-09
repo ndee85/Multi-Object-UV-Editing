@@ -20,7 +20,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9),
+    "version": (0,91),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
@@ -154,6 +154,12 @@ class MultiObjectUVEdit(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def invoke(self, context, event):
+        ### reset variables
+        self.multi_object = None
+        self.initial_objects = []
+        self.initial_objects_hide_render = []
+        self.active_object = None
+        
         for object in context.selected_objects:
             if object.type != "MESH":
                 self.report({'WARNING'}, "Please select Mesh Objects only.")
@@ -202,4 +208,3 @@ def unregister():
 
 if __name__ == "__main__":
     register()
-    
