@@ -20,7 +20,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9,1),
+    "version": (0,91),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
@@ -114,38 +114,31 @@ class MultiObjectUVEdit(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='EDIT')
         
     def merge_selected_objects(self,context):        
-        objects = []
+        objects = list(context.selected_objects)
         dupli_objects = []
-        active_object = None
         ### deselect objects
-        active_object = context.scene.objects.active
-        for ob in context.selected_objects:
-            objects.append(ob)
+        for ob in objects:
             ob.select = False
 
-        
-        
         for i,ob in enumerate(objects):
-            ob.select = True
-            context.scene.objects.active = ob
-                
-            bpy.ops.object.duplicate_move()
-            dupli_ob = context.active_object
+            #no need to use modifier for copying,
+            #also no need to duplicate the meshes. We will duplicate only for the object we'll be joining into,
+            #and that we do later on.
+            dupli_ob = ob.copy()
+            context.scene.objects.link(dupli_ob)
             dupli_objects.append(dupli_ob)
             for group in dupli_ob.vertex_groups:
                 dupli_ob.vertex_groups.remove(group)
-                
-            
             v_group = dupli_ob.vertex_groups.new(name=ob.name)
             v_group.add(range(len(dupli_ob.data.vertices)),1,"REPLACE")
-            dupli_ob.select = False
-            context.scene.objects.active = None
         
+        #select all the new objects, and make the first one active, so we can do a join
         for ob in dupli_objects:
             ob.select = True
-        context.scene.objects.active = context.selected_objects[0]      
+        self.multi_object = context.scene.objects.active = dupli_objects[0]     
+        #copy the mesh, because we will join into that mesh 
+        self.multi_object.data = self.multi_object.data.copy()
         bpy.ops.object.join()
-        self.multi_object = context.active_object
         self.multi_object.name = "Multi_UV_Object"
     
     def modal(self, context, event):
