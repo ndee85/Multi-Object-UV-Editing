@@ -121,9 +121,6 @@ class MultiObjectUVEdit(bpy.types.Operator):
             ob.select = False
 
         for i,ob in enumerate(objects):
-            #no need to use modifier for copying,
-            #also no need to duplicate the meshes. We will duplicate only for the object we'll be joining into,
-            #and that we do later on.
             dupli_ob = ob.copy()
             context.scene.objects.link(dupli_ob)
             dupli_objects.append(dupli_ob)
