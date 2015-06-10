@@ -1,6 +1,9 @@
 # Multi-Object-UV-Editing
 This Blender Addon enables a quick way to create one UV Layout for multiple objects.
 
+# Installation
+- If you download the zip from this repository, make sure you extract the zipfile before you try to install it via blenders addon manager. Github packages every files in a subfolder, which results in a not functioning addon installation. So install the multi_object_uv_edit.py directly.
+
 # Usage
 - Just select multiple mesh objects and then press the "Multi Object UV Editing" Button in the Object Tools Panel.
 This will bring you into editmode of all selected mesh objects and lets you create one UV Layout for all objects. If no
