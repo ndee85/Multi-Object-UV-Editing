@@ -20,7 +20,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9,3),
+    "version": (0,9,4),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
@@ -189,7 +189,8 @@ class MultiObjectUVEdit(bpy.types.Operator):
         ###switch to edit mode
         bpy.ops.object.mode_set(mode="EDIT")
         bpy.ops.mesh.select_all(action='SELECT')
-        bpy.ops.uv.select_all(action='SELECT')
+        if len(self.multi_object.data.uv_textures) > 0:
+            bpy.ops.uv.select_all(action='SELECT')
 
         return {'RUNNING_MODAL'}
 
