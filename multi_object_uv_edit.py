@@ -20,7 +20,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9,4),
+    "version": (0,9,5),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
@@ -141,6 +141,9 @@ class MultiObjectUVEdit(bpy.types.Operator):
             if ob.type == 'MESH':
                 dupli_ob = ob.copy()
                 context.scene.objects.link(dupli_ob)
+                dupli_me = dupli_ob.data.copy()
+                dupli_ob.data = dupli_me
+                
                 dupli_objects.append(dupli_ob)
                 for group in dupli_ob.vertex_groups:
                     dupli_ob.vertex_groups.remove(group)
