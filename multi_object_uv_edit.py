@@ -169,6 +169,12 @@ class MultiObjectUVEdit(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def invoke(self, context, event):
+        ### leave local view, prevents blender to crash when joining objects
+        if context.area.spaces.active.local_view != None:
+            override = bpy.context.copy()
+            override["area"] = context.area
+            bpy.ops.view3d.localview(override)
+        
         ### reset variables
         self.multi_object = None
         context.window_manager.modal_handler_add(self)
