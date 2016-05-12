@@ -162,7 +162,7 @@ class MultiObjectUVEdit(bpy.types.Operator):
           
     
     def modal(self, context, event):
-        if event.type in ['TAB'] or self.multi_object.mode == "OBJECT":
+        if (event.type in ['TAB'] and not event.ctrl and not event.shift and not event.oskey) or self.multi_object.mode == "OBJECT":
             self.report({'INFO'}, "Multi Object UV Editing done.")
             self.leave_editing_mode(context)
             return {'CANCELLED'}
