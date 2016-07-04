@@ -56,7 +56,10 @@ class MultiObjectUVEdit(bpy.types.Operator):
         context.tool_settings.mesh_select_mode = (True,False,False)
         self.multi_object.select = True
         context.scene.objects.active = self.multi_object
-            
+        
+        ### unhide all vertices
+        bpy.ops.mesh.reveal()
+    
         ### copy uvs based on the vertex groups to its final object
         for v_group in self.multi_object.vertex_groups:
             
@@ -110,9 +113,12 @@ class MultiObjectUVEdit(bpy.types.Operator):
         bpy.ops.ed.undo_push(message="Multi UV edit") 
     
     def assign_tex_to_uv(self,src_uv,dst_uv):
-        for i,data in enumerate(src_uv.data):
-            image = data.image
-            dst_uv.data[i].image = image
+        if len(src_uv.data) == len(dst_uv.data):
+            for i,data in enumerate(src_uv.data):
+                image = data.image
+                dst_uv.data[i].image = image
+        else:
+            self.report({'INFO'}, "Mesh has been edited. Modifying UVS is not possible for edited meshes.")
         
     def select_vertex_group(self,ob,group_name):
         bpy.ops.object.mode_set(mode='EDIT')
