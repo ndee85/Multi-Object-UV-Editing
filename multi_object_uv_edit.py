@@ -1,5 +1,4 @@
 # ##### BEGIN GPL LICENSE BLOCK #####
-
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
@@ -20,7 +19,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9,6),
+    "version": (0,9,7),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
