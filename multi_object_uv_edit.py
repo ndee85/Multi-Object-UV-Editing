@@ -19,7 +19,7 @@
 bl_info = {
     "name": "Multi Object UV Editing",
     "author": "Andreas Esau",
-    "version": (0,9,7),
+    "version": (0,9,8),
     "blender": (2, 7, 4),
     "location": "Object Tools",
     "description": "This Addon enables a quick way to create one UV Layout for multiple objects.",
@@ -55,6 +55,10 @@ class MultiObjectUVEdit(bpy.types.Operator):
         context.tool_settings.mesh_select_mode = (True,False,False)
         self.multi_object.select = True
         context.scene.objects.active = self.multi_object
+        
+        ### if edit mode is left with ui interface instead of tab key go back into edit mode first
+        if self.multi_object.mode == "OBJECT":
+            bpy.ops.object.mode_set(mode="EDIT")
         
         ### unhide all vertices
         bpy.ops.mesh.reveal()
