@@ -1,3 +1,7 @@
+# Donate
+You like this addon and want to thank me. This could be a way ;-)
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LA44SUYK5Z2P8)
+
 # Multi-Object-UV-Editing
 This Blender Addon enables a quick way to create one UV Layout for multiple objects.
 
