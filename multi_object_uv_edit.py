@@ -71,8 +71,6 @@ class MultiObjectUVEdit(bpy.types.Operator):
             if num_verts > 0:
                 bpy.ops.mesh.separate(type="SELECTED")
                 tmp_obj = context.selected_objects[0]
-                tmp_obj.name = v_group.name+"_tmp"
-                
                 
                 ### go into object mode select newely created object and transfer the uv's to its final object
                 bpy.ops.object.mode_set(mode='OBJECT')
